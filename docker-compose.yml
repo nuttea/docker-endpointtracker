@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+   db:
+     image: mysql:5.7
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: C1sco12345
+       MYSQL_DATABASE: acitoolkit
+       MYSQL_USER: acitoolkit
+       MYSQL_PASSWORD: C1sco12345
+
+   ncaplus:
+     depends_on:
+       - db
+     image: nuttea/endpointtracker
+     links:
+       - db
+     ports:
+       - "5050:5050"
+     entrypoint: ./docker-entrypoint.sh
+#     command: python aci-endpoint-tracker-gui.py -i db -a root -s C1sco12345 --ip 0.0.0.0 --port 5050
